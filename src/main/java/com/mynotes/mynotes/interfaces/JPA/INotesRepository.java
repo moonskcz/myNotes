@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface INotesRepository extends JpaRepository<NoteEntity, Long> {
 
-    NoteEntity findByIdAndUser (Long id, Long user_id);
+    NoteEntity findByIdAndUser (Long id, Long userId);
 
-    List<NoteEntity> findAllByUser (Long user_id);
+    List<NoteEntity> findAllByUser (Long userId);
 
     /*@Transactional
     @Modifying

@@ -2,11 +2,11 @@ package com.mynotes.mynotes.dtos.request;
 
 public class EditNoteDTO {
 
-    public Long note_id;
+    public Long noteId;
 
     public String newContent;
 
-    public Long user_id;
+    public Long userId;
 
     public String auth;
 }

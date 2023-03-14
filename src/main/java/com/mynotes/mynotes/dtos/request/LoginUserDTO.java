@@ -6,4 +6,5 @@ public class LoginUserDTO {
 
     public String auth;
 
+    public String name;
 }

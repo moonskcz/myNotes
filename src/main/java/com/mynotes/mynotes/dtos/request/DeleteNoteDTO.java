@@ -2,9 +2,9 @@ package com.mynotes.mynotes.dtos.request;
 
 public class DeleteNoteDTO {
 
-    public Long note_id;
+    public Long noteId;
 
-    public Long user_id;
+    public Long userId;
 
     public String auth;
 

@@ -6,6 +6,6 @@ public class CreateNoteDTO {
 
     public String content;
 
-    public Long user_id;
+    public Long userId;
 
 }

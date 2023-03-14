@@ -14,6 +14,9 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "auth")
     private String auth;
 
@@ -39,6 +42,14 @@ public class UserEntity {
 
     public void setAuth(String auth) {
         this.auth = auth;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

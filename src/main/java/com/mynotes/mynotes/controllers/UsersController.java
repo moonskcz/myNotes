@@ -34,6 +34,7 @@ public class UsersController {
     public UserLoginDTO loginUser (@RequestBody LoginUserDTO loginUserDTO) {
         UserEntity userEntity = userService.loginUser(loginUserDTO);
         UserLoginDTO userLoginDTO = new UserLoginDTO();
+        userLoginDTO.name = userEntity.getName();
         userLoginDTO.auth = userEntity.getAuth();
         userLoginDTO.id = userEntity.getId();
         userLoginDTO.succesful = true;

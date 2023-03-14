@@ -1,14 +1,14 @@
 CREATE TABLE users (
     id serial PRIMARY KEY,
-    user_name VARCHAR ( 50 ) UNIQUE NOT NULL,
+    userName VARCHAR ( 50 ) UNIQUE NOT NULL,
     email VARCHAR ( 50 ) UNIQUE NOT NULL,
     auth VARCHAR (255)
 );
 
 CREATE TABLE notes (
     id serial PRIMARY KEY,
-    user_id INT NOT NULL,
+    userId INT NOT NULL,
     content VARCHAR (2048),
-    FOREIGN KEY (user_id)
+    FOREIGN KEY (userId)
           REFERENCES users (id)
 )

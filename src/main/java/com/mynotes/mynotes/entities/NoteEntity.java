@@ -11,7 +11,7 @@ public class NoteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
+    @Column(name = "userId")
     private Long user;
 
     @Column(name = "content")

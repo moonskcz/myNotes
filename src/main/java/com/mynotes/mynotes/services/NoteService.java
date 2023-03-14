@@ -21,10 +21,10 @@ public class NoteService {
     UserService userService;
 
     public NoteEntity createNote(CreateNoteDTO createNoteDTO) {
-        userService.validateUser(createNoteDTO.user_id, createNoteDTO.auth);
+        userService.validateUser(createNoteDTO.userId, createNoteDTO.auth);
 
         NoteEntity noteEntity = new NoteEntity();
-        noteEntity.setUser(createNoteDTO.user_id);
+        noteEntity.setUser(createNoteDTO.userId);
         noteEntity.setContent(createNoteDTO.content);
         notesRepository.save(noteEntity);
 
@@ -33,27 +33,27 @@ public class NoteService {
     }
 
     public NoteEntity getNote(GetNoteDTO getNoteDTO) {
-        userService.validateUser(getNoteDTO.user_id, getNoteDTO.auth);
+        userService.validateUser(getNoteDTO.userId, getNoteDTO.auth);
 
-        NoteEntity noteEntity = notesRepository.findByIdAndUser(getNoteDTO.note_id, getNoteDTO.user_id);
+        NoteEntity noteEntity = notesRepository.findByIdAndUser(getNoteDTO.noteId, getNoteDTO.userId);
 
         return noteEntity;
 
     }
 
     public List<NoteEntity> findAllUserNotes(GetAllUserNotesDTO getAllUserNotesDTO) {
-        userService.validateUser(getAllUserNotesDTO.user_id, getAllUserNotesDTO.auth);
+        userService.validateUser(getAllUserNotesDTO.userId, getAllUserNotesDTO.auth);
 
-        List<NoteEntity> noteEntity = notesRepository.findAllByUser(getAllUserNotesDTO.user_id);
+        List<NoteEntity> noteEntity = notesRepository.findAllByUser(getAllUserNotesDTO.userId);
 
         return noteEntity;
     }
 
     public Boolean deleteNote(DeleteNoteDTO deleteNoteDTO) {
-        userService.validateUser(deleteNoteDTO.user_id, deleteNoteDTO.auth);
+        userService.validateUser(deleteNoteDTO.userId, deleteNoteDTO.auth);
 
         try {
-            notesRepository.deleteById(deleteNoteDTO.note_id);
+            notesRepository.deleteById(deleteNoteDTO.noteId);
         } catch (Exception e) {
             throw new FailedToDeleteNoteException();
         }
@@ -63,10 +63,10 @@ public class NoteService {
 
     @Transactional
     public Boolean editNote(EditNoteDTO editNoteDTO) {
-        userService.validateUser(editNoteDTO.user_id, editNoteDTO.auth);
+        userService.validateUser(editNoteDTO.userId, editNoteDTO.auth);
 
         try {
-            NoteEntity noteEntity = notesRepository.findByIdAndUser(editNoteDTO.note_id, editNoteDTO.user_id);
+            NoteEntity noteEntity = notesRepository.findByIdAndUser(editNoteDTO.noteId, editNoteDTO.userId);
             noteEntity.setContent(editNoteDTO.newContent);
             notesRepository.save(noteEntity);
         } catch (Exception e) {

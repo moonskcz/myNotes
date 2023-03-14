@@ -21,12 +21,17 @@ public class UserService {
             throw new InvalidRegistrationException();
         }
 
+        if (createUserDTO.name.isEmpty()) {
+            throw new InvalidRegistrationException();
+        }
+
         if (createUserDTO.auth.isEmpty()) {
             throw new InvalidRegistrationException();
         }
 
         UserEntity userEntity = new UserEntity();
         userEntity.setAuth(createUserDTO.auth);
+        userEntity.setName(createUserDTO.name);
         userEntity.setEmail(createUserDTO.email);
         usersRepository.save(userEntity);
         return userEntity;
@@ -35,6 +40,10 @@ public class UserService {
     public UserEntity loginUser(LoginUserDTO loginUserDTO) {
         if (loginUserDTO.email.isEmpty()) {
             throw new InvalidLoginException();
+        }
+
+        if (loginUserDTO.name.isEmpty()) {
+            throw new InvalidRegistrationException();
         }
 
         if (loginUserDTO.auth.isEmpty()) {
@@ -50,8 +59,8 @@ public class UserService {
                 loginUserDTO.auth);
     }
 
-    public UserEntity validateUser (Long user_id, String auth) {
-        if (user_id == null) {
+    public UserEntity validateUser (Long userId, String auth) {
+        if (userId == null) {
             throw new InvalidUserException();
         }
         if (auth.isEmpty()) {
@@ -59,7 +68,7 @@ public class UserService {
         }
         UserEntity userEntity = usersRepository.findByAuthAndId(
                 auth,
-                user_id);
+                userId);
 
         if (userEntity == null) {
             throw new InvalidUserException();
