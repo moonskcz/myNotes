@@ -38,15 +38,14 @@ public class UserService {
     }
 
     public UserEntity loginUser(LoginUserDTO loginUserDTO) {
-        if (loginUserDTO.email.isEmpty()) {
+        if (loginUserDTO == null) {
+            throw new InvalidLoginException();
+        }
+        if (loginUserDTO.email == null || loginUserDTO.email.isEmpty()) {
             throw new InvalidLoginException();
         }
 
-        if (loginUserDTO.name.isEmpty()) {
-            throw new InvalidRegistrationException();
-        }
-
-        if (loginUserDTO.auth.isEmpty()) {
+        if (loginUserDTO.auth == null || loginUserDTO.auth.isEmpty()) {
             throw new InvalidLoginException();
         }
 
@@ -63,7 +62,7 @@ public class UserService {
         if (userId == null) {
             throw new InvalidUserException();
         }
-        if (auth.isEmpty()) {
+        if (auth == null || auth.isEmpty()) {
             throw new InvalidUserException();
         }
         UserEntity userEntity = usersRepository.findByAuthAndId(

@@ -8,4 +8,6 @@ public class CreateNoteDTO {
 
     public Long userId;
 
+    public Boolean isPublic = false;
+
 }

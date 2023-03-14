@@ -5,7 +5,6 @@ import com.mynotes.mynotes.dtos.response.*;
 import com.mynotes.mynotes.entities.NoteEntity;
 import com.mynotes.mynotes.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,6 +15,19 @@ public class NotesController {
 
     @Autowired
     NoteService notesService;
+
+    @GetMapping("/notes/all/{page}/{count}")
+    public PublicNotesDTO getPublicNotes (@PathVariable("page") Integer page, @PathVariable("count") Integer count) {
+        List<NoteEntity> notes = notesService.getPublicNotes(page, count);
+
+        PublicNotesDTO publicNotesDTO = new PublicNotesDTO();
+        publicNotesDTO.notes = new ArrayList<NoteDTO>();
+        for (NoteEntity note: notes) {
+            publicNotesDTO.notes.add(new NoteDTO(note.getId(), note.getContent()));
+        }
+
+        return publicNotesDTO;
+    }
 
     @PostMapping("/notes")
     public NoteDTO getNote (@RequestBody GetNoteDTO getNoteDTO) {
@@ -28,16 +40,16 @@ public class NotesController {
     }
 
     @PostMapping("/notes/all")
-    public AllUserNotesDTO getAllUserNotes (@RequestBody GetAllUserNotesDTO getAllUserNotesDTO) {
-        List<NoteEntity> notes = notesService.findAllUserNotes(getAllUserNotesDTO);
+    public UserNotesDTO getUserNotes (@RequestBody GetUserNotesDTO getUserNotesDTO) {
+        List<NoteEntity> notes = notesService.findUserNotes(getUserNotesDTO);
 
-        AllUserNotesDTO allUserNotesDTO = new AllUserNotesDTO();
-        allUserNotesDTO.notes = new ArrayList<NoteDTO>();
+        UserNotesDTO userNotesDTO = new UserNotesDTO();
+        userNotesDTO.notes = new ArrayList<NoteDTO>();
         for (NoteEntity note: notes) {
-            allUserNotesDTO.notes.add(new NoteDTO(note.getId(), note.getContent()));
+            userNotesDTO.notes.add(new NoteDTO(note.getId(), note.getContent()));
         }
 
-        return allUserNotesDTO;
+        return userNotesDTO;
 
     }
 

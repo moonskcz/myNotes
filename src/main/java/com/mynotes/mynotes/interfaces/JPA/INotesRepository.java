@@ -1,6 +1,7 @@
 package com.mynotes.mynotes.interfaces.JPA;
 
 import com.mynotes.mynotes.entities.NoteEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +13,9 @@ public interface INotesRepository extends JpaRepository<NoteEntity, Long> {
 
     NoteEntity findByIdAndUser (Long id, Long userId);
 
-    List<NoteEntity> findAllByUser (Long userId);
+    List<NoteEntity> findAllByUser (Long userId, Pageable pageable);
+
+    List<NoteEntity> findAllByIsPublic (Boolean isPublic, Pageable pageable);
 
     /*@Transactional
     @Modifying

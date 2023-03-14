@@ -2,7 +2,7 @@ package com.mynotes.mynotes.dtos.response;
 
 import java.util.List;
 
-public class AllUserNotesDTO {
+public class UserNotesDTO {
 
     public List<NoteDTO> notes;
 

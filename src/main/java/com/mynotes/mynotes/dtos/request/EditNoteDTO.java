@@ -9,4 +9,6 @@ public class EditNoteDTO {
     public Long userId;
 
     public String auth;
+
+    public Boolean setPublic;
 }

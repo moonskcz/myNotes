@@ -17,6 +17,9 @@ public class NoteEntity {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "is_public")
+    private Boolean isPublic;
+
     public Long getId() {
         return id;
     }
@@ -39,6 +42,14 @@ public class NoteEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Boolean getPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(Boolean aPublic) {
+        isPublic = aPublic;
     }
 
     @Override
