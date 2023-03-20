@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
+
 @RestController
 public class UsersController {
 
@@ -20,11 +22,13 @@ public class UsersController {
     UserService userService;
 
     @PutMapping("/users")
+    @Transactional
     public UserCreatedDTO createUser (@RequestBody CreateUserDTO createUserDTO) {
         UserEntity userEntity = userService.createUser(createUserDTO);
         return new UserCreatedDTO(
                 userEntity.getId(),
                 userEntity.getEmail(),
+                userEntity.getName(),
                 userEntity.getAuth()
         );
 

@@ -1,48 +1,48 @@
 package com.mynotes.mynotes.entities;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@EqualsAndHashCode
 @Table(name = "notes")
 public class NoteEntity {
 
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
+    @Setter
     @Column(name = "userId")
     private Long user;
 
+    @Getter
+    @Setter
     @Column(name = "content")
     private String content;
+
 
     @Column(name = "is_public")
     private Boolean isPublic;
 
-    public Long getId() {
-        return id;
-    }
+    @Getter
+    @Setter
+    @Column(name = "changed_at")
+    private Date changedAt;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUser() {
-        return user;
-    }
-
-    public void setUser(Long user) {
-        this.user = user;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    @Getter
+    @Setter
+    @Column(name = "created_at")
+    private Date createdAt;
 
     public Boolean getPublic() {
         return isPublic;
@@ -50,18 +50,5 @@ public class NoteEntity {
 
     public void setPublic(Boolean aPublic) {
         isPublic = aPublic;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NoteEntity that = (NoteEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(user, that.user) && Objects.equals(content, that.content);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, user, content);
     }
 }

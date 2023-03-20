@@ -1,5 +1,6 @@
 package com.mynotes.mynotes.exceptions.advice;
 
+import com.mynotes.mynotes.exceptions.FunctionNotAllowed;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +16,14 @@ public class DefaultAdvice {
     public String handleException(RuntimeException e) {
         e.printStackTrace();
         return "{\"succesful\": \"false\", \"cause\": \"" + e.getClass().getSimpleName() + "\"}";
+    }
+
+    @ExceptionHandler(FunctionNotAllowed.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String handleFunctionNotAllowed(RuntimeException e) {
+        e.printStackTrace();
+        return "{\"succesful\": \"false\", \"cause\": \"Method currently not allowed\"}";
     }
 
 }

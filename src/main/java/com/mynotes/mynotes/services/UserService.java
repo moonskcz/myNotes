@@ -10,12 +10,15 @@ import com.mynotes.mynotes.interfaces.JPA.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserService {
 
     @Autowired
     private IUsersRepository usersRepository;
 
+    @Transactional
     public UserEntity createUser(CreateUserDTO createUserDTO) {
         if (createUserDTO.email.isEmpty()) {
             throw new InvalidRegistrationException();
