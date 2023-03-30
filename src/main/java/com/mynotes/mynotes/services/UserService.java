@@ -6,8 +6,10 @@ import com.mynotes.mynotes.entities.UserEntity;
 import com.mynotes.mynotes.exceptions.InvalidLoginException;
 import com.mynotes.mynotes.exceptions.InvalidRegistrationException;
 import com.mynotes.mynotes.exceptions.InvalidUserException;
+import com.mynotes.mynotes.exceptions.UserAlreadyExistsException;
 import com.mynotes.mynotes.interfaces.JPA.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -36,7 +38,11 @@ public class UserService {
         userEntity.setAuth(createUserDTO.auth);
         userEntity.setName(createUserDTO.name);
         userEntity.setEmail(createUserDTO.email);
-        usersRepository.save(userEntity);
+        try {
+            usersRepository.save(userEntity);
+        } catch (DataIntegrityViolationException e) {
+            throw new UserAlreadyExistsException();
+        }
         return userEntity;
     }
 
@@ -61,7 +67,7 @@ public class UserService {
                 loginUserDTO.auth);
     }
 
-    public UserEntity validateUser (Long userId, String auth) {
+    public void validateUser (Long userId, String auth) {
         if (userId == null) {
             throw new InvalidUserException();
         }
@@ -76,6 +82,5 @@ public class UserService {
             throw new InvalidUserException();
         }
 
-        return userEntity;
     }
 }
